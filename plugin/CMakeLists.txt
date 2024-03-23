@@ -17,6 +17,7 @@ juce_add_plugin(${PROJECT_NAME}
     PLUGIN_CODE ABCD # change this
     FORMATS VST3 # may change this
     FORMATS AU # may change this
+    FORMATS Standalone # may change this
     PRODUCT_NAME "MyPlugin" # change this
 )
 
