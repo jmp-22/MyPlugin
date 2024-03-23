@@ -4,6 +4,15 @@
 #include <juce_dsp/juce_dsp.h>
 
 namespace audio_plugin {
+
+struct ChainSettings {
+  float peakFreq {0}, peakGainInDecibels {0}, peakQuality {1.f};
+  float lowCutFreq {0}, highCutFreq {0};
+  float lowCutSlope {0}, highCutSlope {0};
+};
+
+ChainSettings getChainSettings(juce::AudioProcessorValueTreeState &apvts);
+
 class AudioPluginAudioProcessor : public juce::AudioProcessor {
 public:
   AudioPluginAudioProcessor();
@@ -48,6 +57,13 @@ private:
   using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
 
   MonoChain leftChain, rightChain; // Left and Right Stereo Chains
+
+  enum ChainPositions {
+    LowCut,
+    Peak,
+    HighCut
+  };
+  
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioPluginAudioProcessor)
 };
 } // namespace audio_plugin
