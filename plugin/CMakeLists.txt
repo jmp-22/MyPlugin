@@ -7,6 +7,8 @@ project(AudioPlugin VERSION 0.1.0)
 # include folder is a good practice. It helps avoid name clashes later on.
 set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include/YourPluginName")
 
+set(FORMATS "VST3" "AU" "Standalone")
+
 # Adds a plugin target (that's basically what the Projucer does).
 juce_add_plugin(${PROJECT_NAME}
     COMPANY_NAME Jpeters # change this
@@ -15,9 +17,7 @@ juce_add_plugin(${PROJECT_NAME}
     NEEDS_MIDI_OUTPUT FALSE # may change this
     PLUGIN_MANUFACTURER_CODE JMPS # change this
     PLUGIN_CODE ABCD # change this
-    FORMATS VST3 # may change this
-    FORMATS AU # may change this
-    FORMATS Standalone # may change this
+    FORMATS ${FORMATS} # may change this
     PRODUCT_NAME "MyPlugin" # change this
 )
 
@@ -40,7 +40,9 @@ target_include_directories(${PROJECT_NAME}
 # If you use one of the additional modules, like the DSP module, you need to specify it here.
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+        juce::juce_dsp
         juce::juce_audio_utils
+        
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
