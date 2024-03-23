@@ -3,6 +3,8 @@
 libs/
 build/
 
+.DS_Store
+
 # Prerequisites
 *.d
 
